@@ -18,12 +18,12 @@ package
 		[Embed(source = "../assets/player_standin.png")] private const PLAYER:Class;
 		
 		//set initial velocities
-		var x_velocity:int = 0;
-		var y_velocity:int = 0;
-		var y_accel:int = 0;
-		var walk_speed:int  = 5;
-		var jump_strength:int =  -10;
-		var gravity:int = 5;
+		public var x_velocity:int = 0;
+		private var y_velocity:int = 0;
+		private var y_accel:int = 0;
+		private var walk_speed:int  = 2.5;
+		private var jump_strength:int =  -10;
+		private var gravity:int = 5;
 
 		
 		public function Player()
@@ -33,6 +33,7 @@ package
 			y = 640;
 			
 			
+			name = "player";
 			graphic = new Image(PLAYER);
 		}
 		
@@ -74,6 +75,10 @@ package
 			
 			super.update();
 			
+		}
+		
+		public function getX_Velocity():int {
+			return x_velocity;
 		}
 
 	}
