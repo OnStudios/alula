@@ -11,13 +11,14 @@ package
 	
 	public class Bg_Layer2 extends Entity
 	{
-		[Embed(source="../assets/hills.png")] private const BG:Class;
+		private const BG:Class;
 		
 		
-		public function Bg_Layer2()
+		public function Bg_Layer2(image_param, y_pos)
 		{
 			x = 0;
-			y = 300;
+			y = y_pos;
+			BG = image_param;
 			graphic = new Image(BG);
 		}
 		

@@ -11,13 +11,14 @@ package
 	
 	public class Bg_Layer3 extends Entity
 	{
-		[Embed(source = "../assets/clouds.png")] private const BG:Class;
+		private const BG:Class;
 		
 		
-		public function Bg_Layer3()
+		public function Bg_Layer3(image_param, y_pos)
 		{
 			x = 0;
-			y = 100;
+			y = y_pos;
+			BG = image_param;
 			graphic = new Image(BG);
 		}
 		

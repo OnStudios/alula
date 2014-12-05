@@ -10,14 +10,14 @@ package
 	import net.flashpunk.graphics.Image;
 	
 	public class Bg_Layer1 extends Entity
-	{
-		[Embed(source = "../assets/ground.png")] private const BG:Class;
+	{	
+		private const BG:Class;
 		
-		
-		public function Bg_Layer1()
+		public function Bg_Layer1(image_param,y_pos)
 		{
 			x = 0;
-			y = 700;
+			y = y_pos;
+			BG = image_param;
 			graphic = new Image(BG);
 		}
 		
@@ -28,6 +28,5 @@ package
 			x -= player.getX_Velocity() / 2;
 
 		}
-
 	}
 }
