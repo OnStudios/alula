@@ -42,7 +42,10 @@ package
 			trace("Player updates.");
 			
 			//update x
-			x += x_velocity;
+			if (x < (550 - x_velocity)) {
+				x += x_velocity;
+			}
+			
 			//if the player won't touch the ground, update for gravity
 			if (y < (650 - y_velocity)) {
 				y_accel = gravity;
