@@ -27,7 +27,9 @@ package
 		private var walk_speed:int  = 2.5;
 		private var jump_strength:int =  -10;
 		private var gravity:int = 5;
-		private var last_shot;
+		private var rof:int = 20;
+		private var last_shot:int;
+		private var stats:Stats = world.getInstance("stats") as Stats;
 		
 		public function Player()
 		{
@@ -38,6 +40,7 @@ package
 			
 			name = "player";
 			graphic = new Image(PLAYER);
+						
 		}
 		
 		override public function update():void
@@ -61,9 +64,11 @@ package
 
 			x_velocity = 0;
 			
-			if (Input.check(Key.SPACE) && (time - last_shot) > rof)
+			
+			if (Input.check(Key.SPACE) && (stats.getTime() - last_shot) > rof)
 			{
-				FP.world.add(new Projectile(10,PROJECTILE, 25, x, y));
+				FP.world.add(new Projectile(10, PROJECTILE, 25, x, y));
+				last_shot = stats.getTime();
 			}
 			if (Input.check(Key.W))
 			{

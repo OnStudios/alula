@@ -25,7 +25,7 @@ package
 		override public function update():void
 		{
 			trace("BG updates.");
-			var player = world.getInstance("player") as Player;
+			var player:Player = world.getInstance("player") as Player;
 			x -= player.getX_Velocity() / 2;
 		}
 
