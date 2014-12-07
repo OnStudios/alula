@@ -10,12 +10,15 @@ package
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	import net.flashpunk.FP;
+
 
 
 	
 	public class Player extends Entity
 	{
 		[Embed(source = "../assets/player_standin.png")] private const PLAYER:Class;
+		[Embed(source = "../assets/proj.jpg")] private const PROJECTILE:Class;
 		
 		//set initial velocities
 		public var x_velocity:int = 0;
@@ -24,7 +27,9 @@ package
 		private var walk_speed:int  = 2.5;
 		private var jump_strength:int =  -10;
 		private var gravity:int = 5;
-
+		private var rof:int = 20;
+		private var last_shot:int;
+		private var stats:Stats = world.getInstance("stats") as Stats;
 		
 		public function Player()
 		{
@@ -35,6 +40,7 @@ package
 			
 			name = "player";
 			graphic = new Image(PLAYER);
+						
 		}
 		
 		override public function update():void
@@ -43,6 +49,7 @@ package
 			
 			//update x
 			x += x_velocity;
+			
 			//if the player won't touch the ground, update for gravity
 			if (y < (650 - y_velocity)) {
 				y_accel = gravity;
@@ -57,12 +64,18 @@ package
 
 			x_velocity = 0;
 			
-			if (Input.check(Key.SPACE))
+			
+			if (Input.check(Key.SPACE) && (stats.getTime() - last_shot) > rof)
+			{
+				FP.world.add(new Projectile(10, PROJECTILE, 25, x, y));
+				last_shot = stats.getTime();
+			}
+			if (Input.check(Key.W))
 			{
 				y -= 2;
 				y_velocity = jump_strength;
 			}
-			
+
 			if (Input.check(Key.D))
 			{
 				x_velocity = walk_speed;
