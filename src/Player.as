@@ -27,7 +27,7 @@ package
 		private var gravity:int = 5;
 		private var rof:int = 20;
 		private var last_shot:int;
-		private var stats:Stats = world.getInstance("stats") as Stats;
+		//private var stats:Stats;
 
 		
 		public function Player()
@@ -36,7 +36,7 @@ package
 			x = 100;
 			y = 640;
 			
-			
+			//stats = world.getInstance("stats") as Stats;
 			name = "player";
 			graphic = new Image(PLAYER);
 		}
@@ -61,10 +61,10 @@ package
 
 			x_velocity = 0;
 			
-			if (Input.check(Key.SPACE) && (stats.getTime() - last_shot) > rof)
+			if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) > rof)
 			{
 				FP.world.add(new Projectile(10, PROJECTILE, 25, x, y));
-				last_shot = stats.getTime();
+				last_shot = Stats.getTime();
 			}
 			if (Input.check(Key.W))
 			{

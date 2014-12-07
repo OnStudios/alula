@@ -11,7 +11,7 @@ package
 	public class Stats extends Entity
 	{
 		
-		private var time:int = 0;
+		private static var time:int = 0;
 		
 		public function Stats() 
 		{
@@ -22,7 +22,7 @@ package
 			time += 1;
 		}
 		
-		public function getTime() {
+		public static function getTime() {
 			return time;
 		}
 		
