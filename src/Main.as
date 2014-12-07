@@ -14,7 +14,7 @@ package
 		public function Main()
 		{
 			super(1200, 800, 60, false);
-			FP.world = new Level1;
+			FP.world = new MainMenu;
 		}
 		override public function init():void
 		{
