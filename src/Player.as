@@ -10,12 +10,13 @@ package
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
-
-
+	import net.flashpunk.FP;
+	
 	
 	public class Player extends Entity
 	{
 		[Embed(source = "../assets/player_standin.png")] private const PLAYER:Class;
+		[Embed(source = "../assets/proj.jpg")] private const PROJECTILE:Class;
 		
 		//set initial velocities
 		public var x_velocity:int = 0;
@@ -24,6 +25,9 @@ package
 		private var walk_speed:int  = 2.5;
 		private var jump_strength:int =  -20;
 		private var gravity:int = 10
+		private var rof:int = 20;
+		private var last_shot:int;
+		private var direction:int = 1;
 
 		
 		public function Player()
@@ -68,13 +72,20 @@ package
 
 			x_velocity = 0;
 			
-		
-				if (Input.check(Key.UP))
+			//attack
+			if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) >= rof)
+			{
+				FP.world.add(new Projectile(10, PROJECTILE, 25, x, y, direction));
+				last_shot = Stats.getTime();
+			}
+			
+			
+			if (Input.check(Key.UP))
 			{
 				y -= 2;
 				y_velocity = jump_strength;
 			}
-				if (Input.check(Key.W))
+			if (Input.check(Key.W))
 			{
 				y -= 2;
 				y_velocity = jump_strength;
@@ -82,19 +93,23 @@ package
 			if (Input.check(Key.D))
 			{
 				x_velocity = walk_speed;
+				direction = 1;
 			}
 			if (Input.check(Key.RIGHT))
 			{
 				x_velocity = walk_speed;
+				direction = 1;
 			}
 			
 			if (Input.check(Key.A))
 			{
 				x_velocity = (0 - walk_speed);
+				direction = -1;
 			}
 			if (Input.check(Key.LEFT))
 			{
 				x_velocity = (0 - walk_speed);
+				direction = -1;
 			}
 			super.update();
 			
