@@ -27,6 +27,7 @@ package
 		private var gravity:int = 5;
 		private var rof:int = 20;
 		private var last_shot:int;
+		private var direction:int = 1;
 		//private var stats:Stats;
 
 		
@@ -61,11 +62,6 @@ package
 
 			x_velocity = 0;
 			
-			if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) > rof)
-			{
-				FP.world.add(new Projectile(10, PROJECTILE, 25, x, y));
-				last_shot = Stats.getTime();
-			}
 			if (Input.check(Key.W))
 			{
 				y -= 2;
@@ -76,12 +72,21 @@ package
 			if (Input.check(Key.D))
 			{
 				x_velocity = walk_speed;
+				direction = 1;
 			}
 			
 			if (Input.check(Key.A))
 			{
-				x_velocity = (0 - walk_speed);
+				x_velocity = ( -1 * walk_speed);
+				direction = -1;
 			}
+			
+			if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) > rof)
+			{
+				FP.world.add(new Projectile(10, PROJECTILE, 25, x, y, direction));
+				last_shot = Stats.getTime();
+			}
+
 			
 			super.update();
 			
