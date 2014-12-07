@@ -21,8 +21,6 @@ package
 			add(new Ground());
 			add(new Player());
 			
-			//add(new Stats());
-			
 		}
 		
 
