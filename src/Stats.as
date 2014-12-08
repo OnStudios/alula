@@ -12,6 +12,7 @@ package
 	{
 		
 		private static var time:int = 0;
+		private static var location:int = 0;
 		
 		public function Stats() 
 		{
@@ -25,7 +26,13 @@ package
 		public static function getTime():int {
 			return time;
 		}
-		
+		public static function getLocation():int {
+			return location;
+		}
+		public static function setLocation(new_loc:int):void {
+			location = new_loc;
+		}
+
 	}
 
 }

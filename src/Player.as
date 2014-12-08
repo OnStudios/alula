@@ -59,7 +59,13 @@ package
 			trace("Player updates.");
 			
 			//update x
-			x += x_velocity;
+			if (x < (550 - x_velocity)) {
+				x += x_velocity;
+			}
+			
+			Stats.setLocation(Stats.getLocation() + x_velocity);
+			
+			
 			//if the player won't touch the ground, update for gravity
 			if (y < (550 - y_velocity)) {
 				y_accel = gravity;
@@ -123,12 +129,12 @@ package
 				direction = 1;
 			}
 			
-			if (Input.check(Key.A))
+			if (Input.check(Key.A) && Stats.getLocation() >= 0)
 			{
 				x_velocity = (0 - walk_speed);
 				direction = -1;
 			}
-			if (Input.check(Key.LEFT))
+			if (Input.check(Key.LEFT) && Stats.getLocation() >= 0)
 			{
 				x_velocity = (0 - walk_speed);
 				direction = -1;
