@@ -59,7 +59,7 @@ package
 			trace("Player updates.");
 			
 			//update x
-			if (x < (550 - x_velocity)) {
+			if (x < (550 - x_velocity) && x > (50 - x_velocity)) {
 				x += x_velocity;
 			}
 			
