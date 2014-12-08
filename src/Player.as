@@ -88,7 +88,15 @@ package
 			//attack
 			if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) >= rof)
 			{
-				sprPlayer.play("ranged_attack", true);
+				if (direction == 1) {
+					sprPlayer.flipped = false;
+					sprPlayer.play("ranged_attack", true);
+				}
+				if (direction == -1) {
+					sprPlayer.flipped = true;
+					sprPlayer.play("ranged_attack", true);
+				}
+				
 				FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction));
 				last_shot = Stats.getTime();
 			}
