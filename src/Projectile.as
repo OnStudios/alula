@@ -24,7 +24,7 @@ package
 		
 		private var direction:int = 1;
 		
-		public function Projectile(x_velocity_param:int, image_param:Class, damage_param:int, x_param:int, y_param:int, direction_param:int)
+		public function Projectile(x_velocity_param:int, image_param:Class, damage_param:int, x_param:int, y_param:int, direction_param:int, type_param:String)
 		{
 			//set initial position
 			x = x_param;
@@ -34,8 +34,8 @@ package
 			damage = damage_param;
 			direction = direction_param;
 			
-			name = "projectile";
-			type = "projectile";
+			name = "bullet";
+			type = type_param;
 			graphic = new Image(PROJECTILE);
 			setHitboxTo(graphic);
 		}
@@ -50,8 +50,8 @@ package
 			super.update();	
 		}
 		
-		public function getX_Velocity():int {
-			return x_velocity;
+		public function getDamage():int {
+			return damage;
 		}
 
 	}
