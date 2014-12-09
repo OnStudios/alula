@@ -60,6 +60,8 @@ package
 			
 			//update x
 			x += x_velocity;
+			
+			
 			//if the player won't touch the ground, update for gravity
 			if (y < (550 - y_velocity)) {
 				y_accel = gravity;
@@ -100,8 +102,13 @@ package
 				FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction));
 				last_shot = Stats.getTime();
 			}
-			
-			
+			if (direction == 1) {
+				sprPlayer.flipped = false;
+				
+			}
+			if (direction == -1) {
+				sprPlayer.flipped = true;
+			}
 			if (Input.check(Key.UP))
 			{
 				y -= 2;
@@ -133,6 +140,16 @@ package
 				x_velocity = (0 - walk_speed);
 				direction = -1;
 			}
+			
+			//pause screen
+			if (Input.check(Key.ESCAPE) || Input.check(Key.P)) {
+				Stats.setPaused(true);
+				FP.world.add(new PausescreenSetting());
+				FP.world.add(new ResumeGame());
+				FP.world.add(new GotoHome());
+				FP.world.add(new RestartButton());
+			}
+			
 			super.update();
 			
 		}

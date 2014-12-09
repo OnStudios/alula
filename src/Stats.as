@@ -12,6 +12,7 @@ package
 	{
 		
 		private static var time:int = 0;
+		private static var paused:Boolean = false;
 		
 		public function Stats() 
 		{
@@ -19,12 +20,21 @@ package
 		}
 		
 		override public function update():void {
-			time += 1;
+			if (!paused) {
+				time += 1;
+			}
 		}
 		
 		public static function getTime():int {
 			return time;
 		}
+		public static function getPaused():Boolean {
+			return paused;
+		}
+		public static function setPaused(bool:Boolean):void {
+			paused = bool;
+		}
+
 		
 	}
 
