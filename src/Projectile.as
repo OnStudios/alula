@@ -24,7 +24,7 @@ package
 		
 		private var direction:int = 1;
 		
-		public function Projectile(x_velocity_param:int, image_param:Class, damage_param:int, x_param:int, y_param:int, direction_param:int)
+		public function Projectile(x_velocity_param:int, image_param:Class, damage_param:int, x_param:int, y_param:int, direction_param:int, type_param:String)
 		{
 			//set initial position
 			x = x_param;
@@ -35,7 +35,7 @@ package
 			direction = direction_param;
 			
 			name = "bullet";
-			type = "bullet";
+			type = type_param;
 			graphic = new Image(PROJECTILE);
 			setHitboxTo(graphic);
 		}

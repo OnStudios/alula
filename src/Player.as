@@ -31,6 +31,7 @@ package
 		private var rof:int = 20;
 		private var last_shot:int;
 		private var direction:int = 1;
+		private var health:int = 100;
 
 		
 		public function Player()
@@ -49,6 +50,8 @@ package
 			
 			name = "player";
 			graphic = sprPlayer;
+			setHitbox(75, 130, (x - 175), (y - 580));
+			FP.console.enable()
 		}
 		
 		override public function update():void
@@ -106,7 +109,7 @@ package
 						sprPlayer.play("ranged_attack", true);
 					}
 					
-					FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction));
+					FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction, "player_bullet"));
 					last_shot = Stats.getTime();
 				}
 				if (direction == 1) {
@@ -133,6 +136,18 @@ package
 					direction = -1;
 				}
 				
+				var p:Projectile = collide("enemy_bullet", x, y) as Projectile;
+				if (collide("enemy_bullet", x, y))
+				{
+					health -= p.getDamage();
+					FP.world.remove(p);
+				}
+				//health and death
+				if (health <= 0) {
+					FP.world.remove(this);
+				}
+
+				
 				//pause screen
 				if (Input.check(Key.ESCAPE) || Input.check(Key.P)) {
 					Stats.setPaused(true);
@@ -152,7 +167,11 @@ package
 		public function getX_Velocity():int {
 			return x_velocity;
 		}
-
+		public function getX():int {
+			return x;
+		}
+		
 	}
+	
 
 }
