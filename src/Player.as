@@ -54,102 +54,97 @@ package
 		override public function update():void
 		{
 			
-			//sprPlayer.play("stand");
-			
-			trace("Player updates.");
-			
-			//update x
-			x += x_velocity;
-			
-			
-			//if the player won't touch the ground, update for gravity
-			if (y < (550 - y_velocity)) {
-				y_accel = gravity;
+			if (!Stats.getPaused()) {
 				
-			}
-			if(y >= (550 - y_velocity)) {
-				y_accel = 0;
-				y_velocity = 0;
+			
+				//sprPlayer.play("stand");
 				
-			}
-			if(y <= (250 - y_velocity)) {
-				jump_strength = gravity;
-				//y_accel = gravity;
-			}
-			
-			if (y >= 540) {
-				jump_strength = -20;
-			}
-			//update y
-			
-			y += y_velocity;
-			y_velocity += y_accel;
+				trace("Player updates.");
+				
+				//update x
+				if (x < (550 - x_velocity) && x > (50 - x_velocity)) {
+					x += x_velocity;
+				}
+				
+				//set location variable.  This is basically the player's location in the world, not his location on the screen
+				Stats.setLocation(Stats.getLocation() + x_velocity);
+				
+				//if the player won't touch the ground, update for gravity
+				if (y < (550 - y_velocity)) {
+					y_accel = gravity;
+					
+				}
+				if(y >= (550 - y_velocity)) {
+					y_accel = 0;
+					y_velocity = 0;
+					
+				}
+				if(y <= (250 - y_velocity)) {
+					jump_strength = gravity;
+					//y_accel = gravity;
+				}
+				
+				if (y >= 540) {
+					jump_strength = -20;
+				}
+				//update y
+				
+				y += y_velocity;
+				y_velocity += y_accel;
 
-			x_velocity = 0;
-			
-			//attack
-			if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) >= rof)
-			{
+				x_velocity = 0;
+				
+				//attack
+				if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) >= rof)
+				{
+					if (direction == 1) {
+						sprPlayer.flipped = false;
+						sprPlayer.play("ranged_attack", true);
+					}
+					if (direction == -1) {
+						sprPlayer.flipped = true;
+						sprPlayer.play("ranged_attack", true);
+					}
+					
+					FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction));
+					last_shot = Stats.getTime();
+				}
 				if (direction == 1) {
 					sprPlayer.flipped = false;
-					sprPlayer.play("ranged_attack", true);
+					
 				}
 				if (direction == -1) {
 					sprPlayer.flipped = true;
-					sprPlayer.play("ranged_attack", true);
+				}
+				if (Input.check(Key.UP) || Input.check(Key.W))
+				{
+					y -= 2;
+					y_velocity = jump_strength;
+				}
+				if (Input.check(Key.D) || Input.check(Key.RIGHT) && Stats.getLocation() < 30)
+				{
+					x_velocity = walk_speed;
+					direction = 1;
 				}
 				
-				FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction));
-				last_shot = Stats.getTime();
-			}
-			if (direction == 1) {
-				sprPlayer.flipped = false;
+				if ((Input.check(Key.A) || Input.check(Key.LEFT)) && Stats.getLocation() >= 10)
+				{
+					x_velocity = (0 - walk_speed);
+					direction = -1;
+				}
 				
+				//pause screen
+				if (Input.check(Key.ESCAPE) || Input.check(Key.P)) {
+					Stats.setPaused(true);
+					FP.world.add(new PausescreenSetting());
+					FP.world.add(new ResumeGame());
+					FP.world.add(new GotoHome());
+					FP.world.add(new RestartButton());
+				}
 			}
-			if (direction == -1) {
-				sprPlayer.flipped = true;
+			else {
+				sprPlayer.play("stand", true);
 			}
-			if (Input.check(Key.UP))
-			{
-				y -= 2;
-				y_velocity = jump_strength;
-			}
-			if (Input.check(Key.W))
-			{
-				y -= 2;
-				y_velocity = jump_strength;
-			}
-			if (Input.check(Key.D))
-			{
-				x_velocity = walk_speed;
-				direction = 1;
-			}
-			if (Input.check(Key.RIGHT))
-			{
-				x_velocity = walk_speed;
-				direction = 1;
-			}
-			
-			if (Input.check(Key.A))
-			{
-				x_velocity = (0 - walk_speed);
-				direction = -1;
-			}
-			if (Input.check(Key.LEFT))
-			{
-				x_velocity = (0 - walk_speed);
-				direction = -1;
-			}
-			
-			//pause screen
-			if (Input.check(Key.ESCAPE) || Input.check(Key.P)) {
-				Stats.setPaused(true);
-				FP.world.add(new PausescreenSetting());
-				FP.world.add(new ResumeGame());
-				FP.world.add(new GotoHome());
-				FP.world.add(new RestartButton());
-			}
-			
 			super.update();
 			
 		}

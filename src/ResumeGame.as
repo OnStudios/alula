@@ -51,6 +51,7 @@ package
 					// Finally, we can loop through the array and call each Enemy's die() function.
 					for each (var e:Entity in enemyList)
 					{
+						Stats.setPaused(false);
 						FP.world.remove(e);
 					}
 	
