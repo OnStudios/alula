@@ -16,7 +16,7 @@ package
 	
 	public class Player extends Entity
 	{
-		[Embed(source="../assets/SPRITE SHEET.png")] private const PLAYER:Class;
+		[Embed(source="../assets/spritesheet.png")] private const PLAYER:Class;
 		[Embed(source = "../assets/proj.png")] private const PROJECTILE:Class;
 		
 		public var sprPlayer:Spritemap = new Spritemap(PLAYER, 58, 58);
@@ -25,7 +25,7 @@ package
 		public var x_velocity:int = 0;
 		private var y_velocity:int = 0;
 		private var y_accel:int = 0;
-		private var walk_speed:int  = 2.5;
+		private var walk_speed:int  = 3.5;
 		private var jump_strength:int =  -20;
 		private var gravity:int = 10
 		private var rof:int = 20;

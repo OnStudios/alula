@@ -34,8 +34,8 @@ package
 			damage = damage_param;
 			direction = direction_param;
 			
-			name = "projectile";
-			type = "projectile";
+			name = "bullet";
+			type = "bullet";
 			graphic = new Image(PROJECTILE);
 			setHitboxTo(graphic);
 		}
@@ -50,8 +50,8 @@ package
 			super.update();	
 		}
 		
-		public function getX_Velocity():int {
-			return x_velocity;
+		public function getDamage():int {
+			return damage;
 		}
 
 	}
