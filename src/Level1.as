@@ -15,8 +15,8 @@ package
 				
 		public function Level1()
 		{
-			add(new Bg_Layer3(CLOUDS, 100));
-			add(new Bg_Layer2(HILLS, 300));
+			add(new Bg_Layer3(CLOUDS, -260));
+			add(new Bg_Layer2(HILLS, 310));
 			
 			add(new Ground());
 			add(new Player());
