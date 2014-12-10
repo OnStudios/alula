@@ -24,6 +24,9 @@ package
 			add(new BasicEnemy(1700, 640));
 			add(new Player());
 			
+			add(new HealthBar(5, 5, 250, 15));
+			add(new XPBar(5, 30, 250, 15));
+			
 			add(new Stats());
 			
 			
