@@ -127,7 +127,7 @@ package
 					y -= 2;
 					y_velocity = jump_strength;
 				}
-				if (Input.check(Key.D) || Input.check(Key.RIGHT) && Stats.getLocation() < 30)
+				if ((Input.check(Key.D) || Input.check(Key.RIGHT)) && Stats.getLocation() < 3000)
 				{
 					x_velocity = walk_speed;
 					direction = 1;

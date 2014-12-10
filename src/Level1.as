@@ -22,6 +22,7 @@ package
 			//add(new BasicEnemy(500, 640));
 			add(new BasicEnemy(1000, 640));
 			add(new BasicEnemy(1700, 640));
+			add(new BasicNPC(500, 640));
 			add(new Player());
 			
 			add(new HealthBar(5, 5, 250, 15));
