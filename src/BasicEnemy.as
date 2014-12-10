@@ -16,7 +16,7 @@ package
 		private var damage:int = 20;
 		private var range:int = 500;
 		private var last_shot:int = 0;
-		
+		private var xp:int = 10;
 		
 		[Embed(source = "../assets/enemy.png")] private const ENEMY:Class;
 		[Embed(source="../assets/proj.png")] private const PROJ:Class;
@@ -46,6 +46,7 @@ package
 			}
 			//health and death
 			if (health <= 0) {
+				player.setXP(player.getXP() + xp);
 				FP.world.remove(this);
 			}
 			
@@ -56,7 +57,7 @@ package
 					direction = -1;
 				}
 				if ((Stats.getTime() - last_shot) >= rof) {
-					FP.world.add(new Projectile(10, PROJ, damage, x + (65 * direction), y, direction, "enemy_bullet"));
+					FP.world.add(new Projectile(10, PROJ, damage, x + (65 * direction), y, direction, "enemy_bullet", range));
 					last_shot = Stats.getTime();
 				}
 			}

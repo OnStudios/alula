@@ -32,6 +32,9 @@ package
 		private var last_shot:int;
 		private var direction:int = 1;
 		private var health:int = 100;
+		private var xp:int = 0;
+		private var next_level_XP:int = 100;
+		private var range = 700;
 
 		
 		public function Player()
@@ -51,7 +54,7 @@ package
 			name = "player";
 			graphic = sprPlayer;
 			setHitbox(75, 130, (x - 175), (y - 580));
-			FP.console.enable()
+			//FP.console.enable()
 		}
 		
 		override public function update():void
@@ -109,7 +112,7 @@ package
 						sprPlayer.play("ranged_attack", true);
 					}
 					
-					FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction, "player_bullet"));
+					FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction, "player_bullet", range));
 					last_shot = Stats.getTime();
 				}
 				if (direction == 1) {
@@ -169,6 +172,19 @@ package
 		}
 		public function getX():int {
 			return x;
+		}
+		public function getHealth():int {
+			return health;
+		}
+		public function getXP():int {
+			return xp;
+		}
+		public function setXP(num:int):void {
+			xp = num;
+		}
+
+		public function getMaxXP():int {
+			return next_level_XP;
 		}
 		
 	}
