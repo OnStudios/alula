@@ -15,6 +15,7 @@ package
 		private static var paused:Boolean = false;
 		//This is basically the player's location in the world, not his location on the screen
 		private static var location:int = 0;
+		private static var dialog_mode:Boolean;
 
 		public function Stats() 
 		{
@@ -41,6 +42,12 @@ package
 		}
 		public static function setLocation(new_loc:int):void {
 			location = new_loc;
+		}
+		public static function getDialogueMode():Boolean {
+			return dialog_mode;
+		}
+		public static function setDialogueMode(bool:Boolean):void {
+			dialog_mode = bool;
 		}
 
 		

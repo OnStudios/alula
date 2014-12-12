@@ -32,12 +32,15 @@ package
 
 		
 		[Embed(source = "../assets/player_standin.png")] private const NPC:Class;
-		[Embed(source="../assets/proj.png")] private const PROJ:Class;
+		[Embed(source = "../assets/proj.png")] private const PROJ:Class;
+		[Embed(source = "../assets/basic_npc_dialogue.xml", mimeType = "application/octet-stream")] private var npcData:Class;
 		
 		public function BasicNPC(x_pos:int, y_pos:int) 
 		{
 			x = x_pos;
 			y = y_pos;
+			
+			setupNPCDialogue();
 			
 			graphic = new Image(NPC);
 			
@@ -68,8 +71,8 @@ package
 			super.render();
 
 		}
-		public function setupNPC():void {
-			var npcDataByteArray:ByteArray = new npcData; s
+		public function setupNPCDialogue():void {
+			var npcDataByteArray:ByteArray = new npcData;
 			var npcDataXML:XML = new XML(npcDataByteArray.readUTFBytes(npcDataByteArray.length));
 			var p:XML;
 			var q:XML;

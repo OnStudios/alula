@@ -13,12 +13,16 @@ package
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
 	import flash.utils.Dictionary;
+	import flash.utils.ByteArray;
+
 	
 	
 	public class Player extends Entity
 	{
 		[Embed(source="../assets/spritesheet.png")] private const PLAYER:Class;
 		[Embed(source = "../assets/proj.png")] private const PROJECTILE:Class;
+		[Embed(source = "../assets/player_dialogue.xml", mimeType = "application/octet-stream")] private var playerData:Class;
+
 		
 		public var sprPlayer:Spritemap = new Spritemap(PLAYER, 58, 58);
 		
@@ -35,7 +39,7 @@ package
 		private var health:int = 100;
 		private var xp:int = 0;
 		private var next_level_XP:int = 100;
-		private var range = 700;
+		private var range:int = 700;
 		// array of objects of type Dialogue
 		private var dialogues:Array = new Array();
 		public var dialogsInTotal:Dictionary = new Dictionary();
@@ -57,6 +61,7 @@ package
 
 			sprPlayer.scale = 4;
 			
+			//setupPlayerDialogue();
 			name = "player";
 			graphic = sprPlayer;
 			setHitbox(75, 130, (x - 175), (y - 580));
@@ -170,6 +175,36 @@ package
 				sprPlayer.play("stand", true);
 			}
 			super.update();
+			
+		}
+		
+		public function setupPlayerDialogue():void {
+			var playerDataByteArray:ByteArray = new playerData;
+			var playerDataXML:XML = new XML(playerDataByteArray.readUTFBytes(playerDataByteArray.length));
+			var p:XML;
+			var q:XML;
+			var r:XML;
+			
+			var playerDialogues:Array = new Array();
+			
+			for each (p in playerDataXML.player.dialogues.dialogue)
+			{
+				var playerDialogueLines:Array = new Array();
+				for each (q in p.line)
+				{
+					var playerDialogueLineVersions:Array = new Array();
+					for each (r in q.version)
+					{
+						playerDialogueLineVersions.push(r);
+					}
+					var playerDialogueLine:Line = new Line(q.@index, playerDialogueLineVersions);
+					playerDialogueLines.push(playerDialogueLine);
+				}
+				var playerDialogue:Dialogue = new Dialogue(p.@partner, p.@index, playerDialogueLines);
+				playerDialogues.push(playerDialogue);
+			}
+			
+			dialogues = playerDialogues;
 			
 		}
 		
