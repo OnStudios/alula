@@ -28,6 +28,7 @@ package
 			add(new XPBar(5, 30, 250, 15));
 			
 			add(new Stats());
+			add(new AmbientSound());
 			
 			
 			
