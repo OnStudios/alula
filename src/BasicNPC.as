@@ -1,11 +1,13 @@
 package  
 {
+	import flash.utils.ByteArray;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
 	import net.flashpunk.utils.Draw;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	import flash.utils.Dictionary;
 	
 	/**
 	 * ...
@@ -23,6 +25,11 @@ package
 		private var response_index = 0;
 		private var responses:Array = new Array("Hi there, how are you?", "Welcome to my planet.", "Good luck out there!");
 		private var last_click:int = 0;
+		// array of objects of type Dialogue
+		private var dialogues:Array = new Array();
+		public var dialogsInTotal:Dictionary = new Dictionary();
+		public var dialogCounters:Dictionary = new Dictionary();
+
 		
 		[Embed(source = "../assets/player_standin.png")] private const NPC:Class;
 		[Embed(source="../assets/proj.png")] private const PROJ:Class;
@@ -49,7 +56,7 @@ package
 			
 			if ((Math.abs(player.getX() - (x - 75))) <= 75) {
 				
-				if (Input.mouseDown && (Stats.getTime() - last_click > 200) && response_index < responses.length - 1) {
+				if (Input.check(Key.E) && response_index < responses.length - 1) {
 					last_click = 0;
 					response_index++;
 				}
@@ -60,7 +67,36 @@ package
 			
 			super.render();
 
-		}		
+		}
+		public function setupNPC():void {
+			var npcDataByteArray:ByteArray = new npcData; s
+			var npcDataXML:XML = new XML(npcDataByteArray.readUTFBytes(npcDataByteArray.length));
+			var p:XML;
+			var q:XML;
+			var r:XML;
+			
+			var npcDialogues:Array = new Array();
+			
+			for each (p in npcDataXML.npc.dialogues.dialogue)
+			{
+				var npcDialogueLines:Array = new Array();
+				for each (q in p.line)
+				{
+					var npcDialogueLineVersions:Array = new Array();
+					for each (r in q.version)
+					{
+						npcDialogueLineVersions.push(r);
+					}
+					var npcDialogueLine:Line = new Line(q.@index, npcDialogueLineVersions);
+					npcDialogueLines.push(npcDialogueLine);
+				}
+				var npcDialogue:Dialogue = new Dialogue(p.@partner, p.@index, npcDialogueLines);
+				npcDialogues.push(npcDialogue);
+			}
+			
+			dialogues = npcDialogues;
+			
+		}
 	}
 
 }

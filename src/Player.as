@@ -12,6 +12,7 @@ package
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
+	import flash.utils.Dictionary;
 	
 	
 	public class Player extends Entity
@@ -35,6 +36,11 @@ package
 		private var xp:int = 0;
 		private var next_level_XP:int = 100;
 		private var range = 700;
+		// array of objects of type Dialogue
+		private var dialogues:Array = new Array();
+		public var dialogsInTotal:Dictionary = new Dictionary();
+		public var dialogCounters:Dictionary = new Dictionary();
+
 
 		
 		public function Player()

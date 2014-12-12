@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dialogue partner "basic_npc" index = "0">
+	<line index = "0">
+		<version>Great! </version>
+		<version>I've been better. </version>
+	</line>
+	<line index="1">
+		<version> Thanks, I just want to get off this planet as soon as
+				  possible.
+		</version>
+	</line>
+	<line index = "2">
+		<version> Thanks for the warning.  I'll try to stay out of the
+				  path of any aliens, I'm not looking for a fight.
+		</version>
+		<version>
+				  I'm not afraid of aliens!
+		</version>
+	</line>
+</dialogue>
