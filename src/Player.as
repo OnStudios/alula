@@ -27,7 +27,6 @@ package
 		private var y_accel:int = 0;
 		private var walk_speed:int  = 3.5;
 		private var jump_strength:int =  -20;
-		private var gravity:int = 10
 		private var rof:int = 20;
 		private var last_shot:int;
 		private var direction:int = 1;
@@ -35,7 +34,7 @@ package
 		private var xp:int = 0;
 		private var next_level_XP:int = 100;
 		private var range = 700;
-
+		private var damage = 25;
 		
 		public function Player()
 		{
@@ -77,7 +76,7 @@ package
 				
 				//if the player won't touch the ground, update for gravity
 				if (y < (550 - y_velocity)) {
-					y_accel = gravity;
+					y_accel = Stats.getGravity();
 					
 				}
 				if(y >= (550 - y_velocity)) {
@@ -86,7 +85,7 @@ package
 					
 				}
 				if(y <= (250 - y_velocity)) {
-					jump_strength = gravity;
+					jump_strength = Stats.getGravity();
 					//y_accel = gravity;
 				}
 				
@@ -112,7 +111,7 @@ package
 						sprPlayer.play("ranged_attack", true);
 					}
 					
-					FP.world.add(new Projectile(10, PROJECTILE, 25, (x+125), (y+95), direction, "player_bullet", range));
+					FP.world.add(new Projectile(10, PROJECTILE, damage, (x+125), (y+95), direction, "player_bullet", range));
 					last_shot = Stats.getTime();
 				}
 				if (direction == 1) {
@@ -175,6 +174,9 @@ package
 		}
 		public function getHealth():int {
 			return health;
+		}
+		public function getRange():int {
+			return range;
 		}
 		public function getXP():int {
 			return xp;

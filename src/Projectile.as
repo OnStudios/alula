@@ -63,6 +63,28 @@ package
 		public function getDamage():int {
 			return damage;
 		}
+		public function getXVelocity():int {
+			return x;
+		}
+		public function getX():int {
+			return x;
+		}
+		public function getY():int {
+			return y;
+		}
+
+		public function getImage():Class {
+			return PROJECTILE;
+		}
+		public function getDamge():int {
+			return damage;
+		}
+		public function getDirection():int {
+			return direction;
+		}
+		public function getRange():int {
+			return range;
+		}
 
 	}
 
