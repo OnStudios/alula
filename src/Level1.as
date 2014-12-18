@@ -19,7 +19,7 @@ package
 			add(new Bg_Layer2(HILLS, 310));
 			
 			add(new Ground());
-			//add(new BasicEnemy(500, 640));
+			add(new BasicNPC(500, 640));
 			add(new BasicEnemy(1000, 640));
 			add(new BasicEnemy(1700, 640));
 			add(new Player());

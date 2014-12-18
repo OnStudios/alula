@@ -54,7 +54,7 @@ package
 			name = "player";
 			graphic = sprPlayer;
 			setHitbox(75, 130, (x - 175), (y - 580));
-			//FP.console.enable()
+			FP.console.enable()
 		}
 		
 		override public function update():void

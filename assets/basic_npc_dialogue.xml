@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<dialogue partner = "player">
+		<line index = "0">
+			<version>Hi there, how are you? </version>
+		</line>
+		<line index="1">
+			<version> That's good! </version>
+		</line>
+		<line index = "2">
+			<version> Well, good luck out there! I hear there are some aliens on this planet, it's a good thing you're armed.  I'm going to keep talking in order to test this dialogue box.  I want to see if text wrapping works properly. 
+			</version>
+		</line>
+	</dialogue>
+</data>
