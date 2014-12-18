@@ -14,7 +14,7 @@ package
 	import net.flashpunk.graphics.Spritemap;
 	
 	
-	public class Player extends Entity
+	public class Player extends Entity 
 	{
 		[Embed(source="../assets/spritesheet.png")] private const PLAYER:Class;
 		[Embed(source = "../assets/proj.png")] private const PROJECTILE:Class;
@@ -42,7 +42,12 @@ package
 			x = 100;
 			y = 540;
 			
-			//
+			//Define Inputs
+			Input.define("Jump", Key.SPACE);
+			Input.define("Left", Key.A, Key.LEFT);
+			Input.define("Right", Key.D, Key.RIGHT);
+			Input.define("Up", Key.W, Key.UP);
+			Input.define("Down", Key.D, Key.RIGHT);
 			
 			//setup animations
 			sprPlayer.add("ranged_attack", [0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,,40,41,42,43,44,45,46,47], 40, false);
@@ -100,7 +105,7 @@ package
 				x_velocity = 0;
 				
 				//attack
-				if (Input.check(Key.SPACE) && (Stats.getTime() - last_shot) >= rof)
+				if (Input.mousePressed && (Stats.getTime() - last_shot) >= rof)
 				{
 					if (direction == 1) {
 						sprPlayer.flipped = false;
@@ -121,7 +126,7 @@ package
 				if (direction == -1) {
 					sprPlayer.flipped = true;
 				}
-				if (Input.check(Key.UP) || Input.check(Key.W))
+				if (Input.check("Jump"))
 				{
 					y -= 2;
 					y_velocity = jump_strength;
