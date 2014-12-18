@@ -8,10 +8,7 @@
 			<version> That's good! </version>
 		</line>
 		<line index = "2">
-			<version> Well, good luck out there! I hear there are some
-					  aliens on this planet, it's a good thing you're armed.  
-					  I'm going to keep talking in order to test this dialogue box.  
-					  I want to see if text wrapping works properly.
+			<version> Well, good luck out there! I hear there are some aliens on this planet, it's a good thing you're armed.  I'm going to keep talking in order to test this dialogue box.  I want to see if text wrapping works properly. 
 			</version>
 		</line>
 	</dialogue>

@@ -17,6 +17,8 @@ package
 	public class NPCDialogueBox extends Entity
 	{
 		
+		private var ticker:int = 0;
+		
 		public function NPCDialogueBox(text_param:String, x_param:int, y_param:int) 
 		{
 			type = "npcDialogueBox";
@@ -26,18 +28,24 @@ package
 			var guiBackground:Image = new Image(new BitmapData(500, 150, false, 0x999999));
 			guiBackground.x = x_param;
 			guiBackground.y = y_param;
-			guiBackground.alpha = 0.5;
+			guiBackground.alpha = 0.99;
 			glist.add(guiBackground);
 
-			var pointsText = new Text(text_param, x_param, y_param);
-			pointsText.width = 200;
-			pointsText.scrollX = 0;
-			pointsText.scrollY = 0;
-			pointsText.wordWrap = true;
+			var pointsText = new Text(text_param, x_param + 10, y_param + 10, { width:480, height:140, wordWrap:true } );
 			glist.add(pointsText);
+			
 			
 			graphic = glist;
 
+		}
+		
+		override public function update():void {
+			if (ticker >= 1) {
+				FP.world.remove(this);
+			}
+			else {
+				ticker++;
+			}
 		}
 		
 	}

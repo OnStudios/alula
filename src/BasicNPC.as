@@ -63,19 +63,14 @@ package
 			var player = world.getInstance("player") as Player;
 			
 			
-			if ((Math.abs(player.getX() - (x - 75))) <= 75) {
+			if ((Math.abs(player.getX() - (x - 75))) <= 75 && getDialogue(response_index, "player") != "") {
 				
 				if (Input.pressed("change_dialogue"))
 				{
 					response_index += 1;
 				}
 				
-				var npcBox = world.getInstance("npcDialogueBox") as NPCDialogueBox;
-				if (npcBox) {
-					FP.world.remove(npcBox);
-				}
 				FP.world.add(new NPCDialogueBox(getDialogue(response_index, "player"), world.camera.x + 650, world.camera.y + 50));
-				//FP.world.add(new TextBox(getDialogue(response_index,"player"), world.camera.x + 650, world.camera.y + 50));
 			}
 			
 			super.render();
