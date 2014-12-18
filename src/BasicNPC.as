@@ -70,9 +70,12 @@ package
 					response_index += 1;
 				}
 				
-				Draw.rect(world.camera.x + 650, world.camera.y + 50, 500, 150, 0x999999);
-				//Draw.text(getDialogue(response_index, "player"), world.camera.x + 650, world.camera.y + 50);
-				FP.world.add(new TextBox(getDialogue(response_index,"player"), world.camera.x + 650, world.camera.y + 50));
+				var npcBox = world.getInstance("npcDialogueBox") as NPCDialogueBox;
+				if (npcBox) {
+					FP.world.remove(npcBox);
+				}
+				FP.world.add(new NPCDialogueBox(getDialogue(response_index, "player"), world.camera.x + 650, world.camera.y + 50));
+				//FP.world.add(new TextBox(getDialogue(response_index,"player"), world.camera.x + 650, world.camera.y + 50));
 			}
 			
 			super.render();
