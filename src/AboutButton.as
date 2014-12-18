@@ -42,7 +42,7 @@ package
                     text.color = 0xFF000000;
                      
                     
-                    FP.world = new AboutPage;
+                    FP.world.add(new AboutPage());
                     return
                 }
             }

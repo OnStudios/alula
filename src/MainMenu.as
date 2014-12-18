@@ -12,7 +12,7 @@ package
 		
 		public function MainMenu()
 		{
-			add(new Title());
+			add(new TitleGraphic());
 			add(new NewGameButton());
 			add(new SettingsButton());	
 			add(new AboutButton());	

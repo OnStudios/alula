@@ -14,7 +14,7 @@ package
 	public class ExitButton extends Entity
 	{	
 		
-		var text = new Text("Exit");
+		var text:Text = new Text("Exit");
 		
 		public function ExitButton()
 		{

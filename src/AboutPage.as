@@ -9,9 +9,9 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Text;
 	
-	public class Title extends Entity
+	public class AboutPage extends Entity
 	{	
-		public function Title()
+		public function AboutPage()
 		{
 			x = 440;
 			y = 150;
