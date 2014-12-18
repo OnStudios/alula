@@ -15,7 +15,8 @@ package
 		private static var paused:Boolean = false;
 		//This is basically the player's location in the world, not his location on the screen
 		private static var location:int = 0;
-
+		private static var gravity:int = 10
+		
 		public function Stats() 
 		{
 			name = "stats";
@@ -42,6 +43,14 @@ package
 		public static function setLocation(new_loc:int):void {
 			location = new_loc;
 		}
+
+		public static function getGravity():int {
+			return gravity;
+		}
+		public static function setGravity(grav_param:int):void {
+			gravity = grav_param;
+		}
+
 
 		
 	}
