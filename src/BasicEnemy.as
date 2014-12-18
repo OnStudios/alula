@@ -17,6 +17,12 @@ package
 		private var range:int = 500;
 		private var last_shot:int = 0;
 		private var xp:int = 10;
+		private var targeting:Boolean = false;		
+		private var walk_speed:int = 5;		
+		private var y_velocity:int = 0;		
+		private var y_accel:int = 0;		
+		private var jump_strength:int = 100;
+		
 		
 		[Embed(source = "../assets/enemy.png")] private const ENEMY:Class;
 		[Embed(source="../assets/proj.png")] private const PROJ:Class;
@@ -34,6 +40,7 @@ package
 		}
 		
 		override public function update():void {
+						
 			//position
 			var player = world.getInstance("player") as Player;
 			x -= player.getX_Velocity() / 2;
@@ -43,12 +50,47 @@ package
 			{
 				health -= p.getDamage();
 				FP.world.remove(p);
+				
+				if ((Math.abs(player.getX() - x)) >= range) {		
+					targeting = true;		
+				}
+				
 			}
 			//health and death
 			if (health <= 0) {
 				player.setXP(player.getXP() + xp);
 				FP.world.remove(this);
 			}
+			
+			//fleeing
+			if (health <= 50) {
+				if ((Math.abs(player.getX() - x)) <= player.getRange()) {
+					if ((player.getX() - x) > 0) {
+						x -= walk_speed/2;
+					}
+					else {
+						x += walk_speed/2;
+					}
+
+				}
+			}
+			
+			
+			//motion and targeting
+			if (targeting) {
+				if ((Math.abs(player.getX() - x)) <= range) {
+					targeting = false;
+				}
+				else {
+					if ((player.getX() - x) > 0) {
+						x += walk_speed;
+					}
+					else {
+						x -= walk_speed;
+					}
+				}
+			}
+			
 			
 			//attacking
 			var direction = 1;
@@ -63,6 +105,12 @@ package
 			}
 
 		}
+		
+		function randomRange(minNum:int, maxNum:int):int 
+		{
+			return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
+		}
+
 		
 	}
 
