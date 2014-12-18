@@ -42,7 +42,7 @@ package
                     text.color = 0xFF000000;
                      
                     
-                    FP.world = new Level1;
+                    FP.world = new AboutPage;
                     return
                 }
             }
