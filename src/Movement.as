@@ -13,8 +13,19 @@ package
 			
 		}
 		
-		private static function moveUp(speed:int, entity:Entity) {
-			//Entity.scal
+		public static function moveUp(speed:int, actor:Actor):void {
+			actor.y_velocity = speed * -1;
+		}
+		public static function moveDown(speed:int, actor:Actor):void {
+			actor.y_velocity = speed;
+		}
+		public static function moveRight(speed:int, actor:Actor):void {
+			actor.direction = 1;
+			actor.x_velocity = speed;
+		}
+		public static function moveLeft(speed:int, actor:Actor):void {
+			actor.direction = -1;
+			actor.x_velocity = speed * -1;
 		}
 		
 	}

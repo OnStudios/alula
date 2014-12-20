@@ -14,46 +14,35 @@ package
 	import net.flashpunk.graphics.Spritemap;
 	
 	
-	public class Player extends Entity 
+	public class Player extends Actor 
 	{
 		[Embed(source="../assets/spritesheet.png")] private const PLAYER:Class;
 		[Embed(source = "../assets/proj.png")] private const PROJECTILE:Class;
 		
 		public var sprPlayer:Spritemap = new Spritemap(PLAYER, 58, 58);
-		
-		//set initial velocities
-		public var x_velocity:int = 0;
-		private var y_velocity:int = 0;
-		private var y_accel:int = 0;
-		private var walk_speed:int  = 3.5;
-		private var jump_strength:int =  -20;
-		private var rof:int = 20;
-		private var last_shot:int;
-		private var direction:int = 1;
-		private var health:int = 100;
+
 		private var xp:int = 0;
 		private var next_level_XP:int = 100;
-		private var range = 700;
-		private var damage = 25;
 		
 		public function Player()
 		{
-			//set initial position
-			x = 100;
-			y = 540;
 			
+			super(200, 500, 0, 0, 3.5, 1, 20, 0, 100, 700, 25, sprPlayer);
+						
 			//Define Inputs
 			Input.define("Jump", Key.SPACE);
 			Input.define("Left", Key.A, Key.LEFT);
 			Input.define("Right", Key.D, Key.RIGHT);
 			Input.define("Up", Key.W, Key.UP);
-			Input.define("Down", Key.D, Key.RIGHT);
+			Input.define("Down", Key.S, Key.DOWN);
 			
 			//setup animations
-			sprPlayer.add("ranged_attack", [0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,,40,41,42,43,44,45,46,47], 40, false);
-			sprPlayer.add("stand", [48], 20, true);
+			sprite_map.add("ranged_attack", [0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,,40,41,42,43,44,45,46,47], 40, false);
+			sprite_map.add("stand", [48], 20, true);
 
-			sprPlayer.scale = 4;
+			sprite_map.scale = 4;
+			
+			
 			
 			name = "player";
 			graphic = sprPlayer;
@@ -66,111 +55,70 @@ package
 			
 			if (!Stats.getPaused()) {
 				
-			
-				//sprPlayer.play("stand");
-				
-				trace("Player updates.");
-				
-				//update x
-				if (x < (550 - x_velocity) && x > (50 - x_velocity)) {
-					x += x_velocity;
-				}
-				
-				//set location variable.  This is basically the player's location in the world, not his location on the screen
-				Stats.setLocation(Stats.getLocation() + x_velocity);
-				
-				//if the player won't touch the ground, update for gravity
-				if (y < (550 - y_velocity)) {
-					y_accel = Stats.getGravity();
-					
-				}
-				if(y >= (550 - y_velocity)) {
-					y_accel = 0;
-					y_velocity = 0;
-					
-				}
-				if(y <= (250 - y_velocity)) {
-					jump_strength = Stats.getGravity();
-					//y_accel = gravity;
-				}
-				
-				if (y >= 540) {
-					jump_strength = -20;
-				}
-				//update y
-				
-				y += y_velocity;
-				y_velocity += y_accel;
-
+				//set velocity back to zero
 				x_velocity = 0;
+				y_velocity = 0;
 				
 				//attack
 				if (Input.mousePressed && (Stats.getTime() - last_shot) >= rof)
 				{
-					if (direction == 1) {
-						sprPlayer.flipped = false;
-						sprPlayer.play("ranged_attack", true);
-					}
-					if (direction == -1) {
-						sprPlayer.flipped = true;
-						sprPlayer.play("ranged_attack", true);
-					}
-					
-					FP.world.add(new Projectile(10, PROJECTILE, damage, (x+125), (y+95), direction, "player_bullet", range));
-					last_shot = Stats.getTime();
+					attack();
 				}
-				if (direction == 1) {
-					sprPlayer.flipped = false;
-					
+				//movement
+				if (Input.check("Left")) {
+					Movement.moveLeft(walk_speed, this);
 				}
-				if (direction == -1) {
-					sprPlayer.flipped = true;
+				if (Input.check("Right")) {
+					Movement.moveRight(walk_speed, this);
 				}
-				if (Input.check("Jump"))
-				{
-					y -= 2;
-					y_velocity = jump_strength;
+				if (Input.check("Up")) {
+					Movement.moveUp(walk_speed, this);
 				}
-				if (Input.check(Key.D) || Input.check(Key.RIGHT) && Stats.getLocation() < 30)
-				{
-					x_velocity = walk_speed;
-					direction = 1;
+				if (Input.check("Down")) {
+					Movement.moveDown(walk_speed, this);
 				}
 				
-				if ((Input.check(Key.A) || Input.check(Key.LEFT)) && Stats.getLocation() >= 10)
-				{
-					x_velocity = (0 - walk_speed);
-					direction = -1;
-				}
+				this.updateY();
+				this.updateX();
 				
+
+				//projectile collision
 				var p:Projectile = collide("enemy_bullet", x, y) as Projectile;
 				if (collide("enemy_bullet", x, y))
 				{
 					health -= p.getDamage();
 					FP.world.remove(p);
 				}
-				//health and death
-				if (health <= 0) {
-					FP.world.remove(this);
-				}
-
 				
-				//pause screen
-				if (Input.check(Key.ESCAPE) || Input.check(Key.P)) {
-					Stats.setPaused(true);
-					FP.world.add(new PausescreenSetting());
-					FP.world.add(new ResumeGame());
-					FP.world.add(new GotoHome());
-					FP.world.add(new RestartButton());
-				}
+				//health and death
+				this.checkDeath();
+				
+				
 			}
 			else {
 				sprPlayer.play("stand", true);
 			}
-			super.update();
-			
+						
 		}
 		
+		public function attack():void {
+			if (direction == 1) {
+				sprPlayer.flipped = false;
+				sprPlayer.play("ranged_attack", true);
+			}
+			if (direction == -1) {
+				sprPlayer.flipped = true;
+				sprPlayer.play("ranged_attack", true);
+			}
+					
+			FP.world.add(new Projectile(10, PROJECTILE, damage, (x+125), (y+95), direction, "player_bullet", range));
+			last_shot = Stats.getTime();
+
+		}
+		
+		
+		//getters and setters
+		//should be removed
 		public function getX_Velocity():int {
 			return x_velocity;
 		}

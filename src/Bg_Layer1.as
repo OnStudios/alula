@@ -25,7 +25,7 @@ package
 		{
 			trace("BG updates.");
 			var player = world.getInstance("player") as Player;
-			x -= player.getX_Velocity() / 2;
+			x -= player.getX_Velocity() * 0.75;
 
 		}
 	}

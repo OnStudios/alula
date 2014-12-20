@@ -11,13 +11,13 @@ package
 	
 	public class Ground extends Entity
 	{
-		[Embed(source = "../assets/ground.png")] private const GROUND:Class;
+		[Embed(source = "../assets/ground_2.png")] private const GROUND:Class;
 		
 		
 		public function Ground()
 		{
 			x = 0;
-			y = 700;
+			y = 0;
 			graphic = new Image(GROUND);
 		}
 		
