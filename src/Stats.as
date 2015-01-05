@@ -50,7 +50,6 @@ package
 		public static function setGravity(grav_param:int):void {
 			gravity = grav_param;
 		}
-
 		
 	}
 
